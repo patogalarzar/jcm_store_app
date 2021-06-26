@@ -12,16 +12,25 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
+    @stores = Store.all
     @product = Product.new
   end
 
   # GET /products/1/edit
   def edit
+    @stores = Store.all
   end
 
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
+
+    params[:product][:store_ids].each do |store_id|
+      unless store_id.empty?
+      store = Store.find(store_id)
+        @product.stores << store
+      end
+    end
 
     respond_to do |format|
       if @product.save
@@ -36,6 +45,13 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    params[:product][:store_ids].each do |store_id|
+      unless store_id.empty?
+      store = Store.find(store_id)
+        @product.stores << store
+      end
+    end
+
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to @product, notice: "Product was successfully updated." }

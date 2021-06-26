@@ -36,6 +36,16 @@
     <%= form.text_field :category_id %>
   </div>
 
+  <div class="field">
+    <%= form.label :stores %>
+    <% @stores.each do |store| %>
+    <div>
+      <%= check_box_tag "product[store_ids][]", store.id, @product.stores.include?(store) %>
+      <%= store.name %>
+    </div>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

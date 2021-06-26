@@ -23,6 +23,11 @@
 <p>
   <strong>Category:</strong>
   <%= @product.category_id %>
+  </p>
+  
+<p>
+  <strong>Stores:</strong>
+  <%= @product.stores.map(&:name).join(', ') %>
 </p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
