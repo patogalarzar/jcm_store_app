@@ -1,35 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Products</h1>
+<h1 class="cover-heading">Products.</h1>
+<p class="lead d-flex w-100 flex-wrap justify-content-between align-items-center mb-3">
+  <span class=" mb-3">Manage all your products in one place.</span>
+  <%= link_to 'New Product', new_product_path, class: "btn btn-outline-primary" %>
+</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Color</th>
-      <th>Size</th>
-      <th>Price</th>
-      <th>Category</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.color %></td>
-        <td><%= product.size %></td>
-        <td><%= product.price %></td>
-        <td><%= product.category.name %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="list-group list-group-flush">
+  <% @products.each do |product| %>
+    <span class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><%= product.name %></h5>
+        <span class="badge badge-primary badge-pill">
+          $ <%= product.price %>
+        </span>
+      </div>
+      <small>
+        Color: <%= product.color %> | Size: <%= product.size %>
+      </small>
+      <p class="d-flex w-100 justify-content-between mb-1">
+        <span>
+          <strong>Category:</strong> <%= product.category.name %>
+        </span>
+        <span class="list-actions">
+          <%= link_to 'Show', product, class: "ml-3" %>
+          <%= link_to 'Edit', edit_product_path(product), class: "ml-3" %>
+          <%= link_to 'Destroy', product, class: "ml-3", method: :delete, data: { confirm: 'Are you sure?' } %>
+        </span>
+      </p>
+    </span>
+  <% end %>
+</div>
 
 <br>
-
-<%= link_to 'New Product', new_product_path %>

@@ -1,1 +1,14 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+@import './cover.css';
+
+.badge {
+  line-height: inherit;
+  max-height: 25px;
+}
+
+.list-actions {
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

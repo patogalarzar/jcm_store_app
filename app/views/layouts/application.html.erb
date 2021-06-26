@@ -2,17 +2,58 @@
 <html>
   <head>
     <title>JcmStoreApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="theme-color" content="#563d7c">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <div class="container">
-      <%= yield %>
+    
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto text-center">
+        <div class="inner">
+          <h3 class="masthead-brand">JCM Store</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <%= link_to 'Category', categories_path, class: "nav-link" %>
+            <%= link_to 'Stores', stores_path, class: "nav-link" %>
+            <%= link_to 'Products', products_path, class: "nav-link" %>
+          </nav>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <%= yield %>
+      </main>
+
+      <footer class="mastfoot mt-auto text-center">
+        <div class="inner">
+          <p>Store for <a href="https://justclick.media/">Just Click Media</a>, by <a href="https://twitter.com/patogalarzar">@patogalarzar</a>.</p>
+        </div>
+      </footer>
     </div>
+
   </body>
 </html>

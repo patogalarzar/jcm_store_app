@@ -1,34 +1,25 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @store.name %>
+<h1 class="cover-heading">Store.</h1>
+<p class="lead d-flex w-100 flex-wrap justify-content-between align-items-center mb-3">
+  <span class=" mb-3">Details.</span>
 </p>
 
-<p>
-  <strong>Street:</strong>
-  <%= @store.street %>
-</p>
+<div class="d-flex justify-content-center">
+  <div class="card mb-3" style="width: 75%;">
+    <div class="card-body">
+      <h5 class="card-title"><%= @store.name %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">
+        <strong>Address:</strong> <br>
+        <%= @store.street %>, <%= @store.number %>, <%= @store.zip_code %>
+      </h6>
+      <p class="card-text">
+        <%= @store.city %>, <%= @store.country %>
+      </p>
+      <%= link_to 'Edit', edit_store_path(@store), class: "card-link" %>
+      <%= link_to 'Back', stores_path, class: "card-link" %>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>Number:</strong>
-  <%= @store.number %>
-</p>
-
-<p>
-  <strong>Zip code:</strong>
-  <%= @store.zip_code %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @store.city %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @store.country %>
-</p>
-
-<%= link_to 'Edit', edit_store_path(@store) %> |
-<%= link_to 'Back', stores_path %>
+<br>
