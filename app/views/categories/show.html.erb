@@ -6,7 +6,7 @@
 </p>
 
 <div class="d-flex justify-content-center">
-  <div class="card mb-3" style="width: 75%;">
+  <div class="card mb-3" style="width: 100%;">
     <div class="card-body">
       <h5 class="card-title"><%= @category.name %></h5>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -17,6 +17,32 @@
       <%= link_to 'Back', categories_path, class: "card-link" %>
     </div>
   </div>
+</div>
+
+<p>Products available in this category:</p>
+
+<div class="list-group list-group-flush">
+  <% @category.products.each do |product| %>
+    <span class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1"><%= product.name %></h5>
+        <span class="badge badge-primary badge-pill">
+          $ <%= product.price %>
+        </span>
+      </div>
+      <small>
+        Color: <%= product.color %> | Size: <%= product.size %>
+      </small>
+      <p class="d-flex w-100 justify-content-between mb-1">
+        <span>
+          <strong>Category:</strong> <%= product.category.name %>
+        </span>
+        <span class="list-actions">
+          <%= link_to 'Show', product, class: "ml-3" %>
+        </span>
+      </p>
+    </span>
+  <% end %>
 </div>
 
 <br>
