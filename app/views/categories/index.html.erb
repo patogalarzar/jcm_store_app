@@ -1,9 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
+
 <h1 class="cover-heading">Categories.</h1>
 <p class="lead d-flex w-100 flex-wrap justify-content-between align-items-center mb-3">
   <span class=" mb-3">Here manage your categories.</span>
-  <%= link_to 'New Category', new_category_path, class: "btn btn-outline-primary" %>
+  <%= link_to 'New Category', { controller => :categories, :action =>:new ,:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'  }, class: "btn btn-outline-primary" %>
 </p>
 
 <div class="list-group list-group-flush">
@@ -18,7 +24,7 @@
         </span>
         <span class="list-actions">
           <%= link_to 'Show', category, class: "ml-3" %>
-          <%= link_to 'Edit', edit_category_path(category), class: "ml-3" %>
+          <%= link_to 'Edit', edit_category_path(category), remote: true, class: "ml-3" %>
           <%= link_to 'Destroy', category, class: "ml-3", method: :delete, data: { confirm: 'Are you sure?' } %>
         </span>
       </p>

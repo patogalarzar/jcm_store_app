@@ -12,11 +12,20 @@ class CategoriesController < ApplicationController
 
   # GET /categories/new
   def new
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    
     @category = Category.new
   end
 
   # GET /categories/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /categories or /categories.json
