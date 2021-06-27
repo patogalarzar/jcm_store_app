@@ -11,33 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :color %>
-    <%= form.text_field :color %>
+    <%= form.text_field :color, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :size %>
-    <%= form.text_field :size %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= form.label :size %>
+      <%= form.text_field :size, class: "form-control" %>
+    </div>
+
+    <div class="form-group col-md-6">
+      <%= form.label :price %>
+      <%= form.text_field :price, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
+  <div class="form-group">
     <%= form.label :category_id %>
     <!-- <%= form.text_field :category_id %> -->
-    <%= collection_select(:product, :category_id, Category.all, :id, :name, {}, { :multiple => false } )%>
+    <%= collection_select(:product, :category_id, Category.all, :id, :name, {}, { :class=>'form-control' } ) %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :stores %>
     <% @stores.each do |store| %>
     <div>
@@ -47,7 +49,7 @@
     <% end %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="orm-group">
+    <%= form.submit "Create Product", class: "btn btn-primary" %>
   </div>
 <% end %>
