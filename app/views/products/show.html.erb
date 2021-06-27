@@ -6,7 +6,7 @@
 </p>
 
 <div class="d-flex justify-content-center">
-  <div class="card mb-3" style="width: 75%;">
+  <div class="card mb-3" style="width: 100%;">
     <div class="card-body">
       <h5 class="card-title"><%= @product.name %></h5>
       <h6 class="card-subtitle mb-2 text-muted">
@@ -20,13 +20,31 @@
       <p class="card-text" style="font-size: larger;">
         <strong>Price:</strong> <%= @product.price %>
       </p>
-      <p class="card-text">
-        <strong>Stores:</strong> <%= @product.stores.map(&:name).join(', ') %>
-      </p>
       <%= link_to 'Edit', edit_product_path(@product), class: "card-link" %>
       <%= link_to 'Back', products_path, class: "card-link" %>
     </div>
   </div>
-</div>
+
+  </div>
+  <p>Stores where the product is available:</p>
+  <div class="row">
+    <% @product.stores.each do |store| %>
+      <div class="col-xs-12 col-sm-6">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><%= store.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              <strong>Address:</strong> <br>
+              <%= store.street %>, <%= store.number %>, <%= store.zip_code %>
+            </h6>
+            <p class="card-text">
+              <%= store.city %>, <%= store.country %>
+            </p>
+            <%= link_to 'Show', store, class: "card-link" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
 <br>
