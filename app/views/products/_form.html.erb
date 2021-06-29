@@ -39,9 +39,10 @@
     <%= collection_select(:product, :category_id, Category.all, :id, :name, {}, { :class=>'form-control' } ) %>
   </div>
 
+  <% if Store.all.any? %>
   <div class="form-group">
     <%= form.label :stores %>
-    <% @stores.each do |store| %>
+    <% Store.all.each do |store| %>
     <div>
       <%= check_box_tag "product[store_ids][]", store.id, @product.stores.include?(store) %>
       <%= store.name %>
@@ -49,7 +50,15 @@
     <% end %>
   </div>
 
-  <div class="orm-group">
-    <%= form.submit "Create Product", class: "btn btn-primary" %>
+  <% else %>
+  <div class="form-group">
+    <%= form.label :stores %>
+    <p>
+      <strong>Note:</strong> There are no stores to associate to this product. Create one first!
+    </p>
+  </div>
+  <% end %>
+  <div class="form-group">
+    <%= form.submit "Submit Product", class: "btn btn-primary" %>
   </div>
 <% end %>

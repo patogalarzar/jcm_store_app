@@ -32,19 +32,47 @@ class CategoriesController < ApplicationController
   def create
     @category = Category.new(category_params)
 
+    params[:category][:keywords_list].split(',').each do |name|
+      unless name.empty?
+        keyword = Keyword.find_by name: name.to_s.strip
+        if !keyword
+          @category.keywords << Keyword.new(name: name.to_s.strip)
+        else
+          respond_to do |format|
+            format.html { redirect_to :categories, :flash => { :error => "Category not saved, keyword *#{name.to_s.strip}* is already in use!" } and return }
+            format.json { render :categories, status: :created, location: @categories }
+          end
+        end
+      end
+    end
+
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, notice: "Category was successfully created." }
+        format.html { redirect_to :categories, notice: "Category was successfully created." }
         format.json { render :show, status: :created, location: @category }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
+        format.html { render :index, status: :unprocessable_entity }
+        format.js { render json: @category.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # PATCH/PUT /categories/1 or /categories/1.json
   def update
+    params[:category][:keywords_list].split(',').each do |name|
+      unless name.empty?
+        keyword = Keyword.find_by name: name.to_s.strip
+        if !keyword
+          @category.keywords << Keyword.new(name: name.to_s.strip)
+        else
+          respond_to do |format|
+            format.html { redirect_to @category, :flash => { :error => "Category not updated, keyword *#{name.to_s.strip}* is already in use!" } and return }
+            format.json { render :show, status: :ok, location: @category }
+          end
+        end
+      end
+    end
+
     respond_to do |format|
       if @category.update(category_params)
         format.html { redirect_to @category, notice: "Category was successfully updated." }
@@ -73,6 +101,6 @@ class CategoriesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def category_params
-      params.require(:category).permit(:name, :keywords)
+      params.require(:category).permit(:name)
     end
 end

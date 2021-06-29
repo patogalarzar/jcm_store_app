@@ -1,9 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<h1 class="cover-heading">Category.</h1>
+<h1 class="mt-3">Category.</h1>
 <p class="lead d-flex w-100 flex-wrap justify-content-between align-items-center mb-3">
-  <span class=" mb-3">Details.</span>
+  <span class="mb-3">Details.</span>
 </p>
+
+<% unless notice.blank? %>
+  <div id="notice" class="alert alert-success" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+<% if flash[:error] %>
+  <div id="error" class="alert alert-danger" role="alert">
+    <%= flash[:error] %>
+  </div>
+<% end %>
+
+<div class="d-flex justify-content-start mb-3">
+  <%= link_to "❮ Back", categories_path, class: "card-link" %>
+</div>
 
 <div class="d-flex justify-content-center">
   <div class="card mb-3" style="width: 100%;">
@@ -11,38 +24,45 @@
       <h5 class="card-title"><%= @category.name %></h5>
       <h6 class="card-subtitle mb-2 text-muted">
         <strong>Keywords:</strong>
-        <%= @category.keywords %>
+        <% @category.keywords.each do | keyword | %>
+          <span class="badge badge-light"><%= keyword.name %></span>
+        <% end %>
       </h6>
       <%= link_to 'Edit', edit_category_path(@category), class: "card-link" %>
-      <%= link_to 'Back', categories_path, class: "card-link" %>
     </div>
   </div>
 </div>
 
-<p>Products available in this category:</p>
+<% if @category.products.any? %>
+  <p>Products available in this category:</p>
 
-<div class="list-group list-group-flush">
-  <% @category.products.each do |product| %>
-    <span class="list-group-item list-group-item-action">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1"><%= product.name %></h5>
-        <span class="badge badge-primary badge-pill">
-          $ <%= product.price %>
-        </span>
-      </div>
-      <small>
-        Color: <%= product.color %> | Size: <%= product.size %>
-      </small>
-      <p class="d-flex w-100 justify-content-between mb-1">
-        <span>
-          <strong>Category:</strong> <%= product.category.name %>
-        </span>
-        <span class="list-actions">
-          <%= link_to 'Show', product, class: "ml-3" %>
-        </span>
-      </p>
-    </span>
-  <% end %>
-</div>
+  <div class="list-group list-group-flush">
+    <% @category.products.each do |product| %>
+      <span class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><%= product.name %></h5>
+          <span class="badge badge-primary badge-pill">
+            $ <%= product.price %>
+          </span>
+        </div>
+        <small>
+          Color: <%= product.color %> | Size: <%= product.size %>
+        </small>
+        <p class="d-flex w-100 justify-content-between mb-1">
+          <span>
+            <strong>Category:</strong> <%= product.category.name %>
+          </span>
+          <span class="list-actions">
+            <%= link_to 'Show', product, class: "ml-3" %>
+          </span>
+        </p>
+      </span>
+    <% end %>
+  </div>
+<% else %>
+  <p>
+    <strong>Note:</strong> There is no products assosieted to this category.
+  </p>
+<% end %>
 
 <br>

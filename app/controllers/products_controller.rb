@@ -25,10 +25,12 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
 
-    params[:product][:store_ids].each do |store_id|
-      unless store_id.empty?
-      store = Store.find(store_id)
-        @product.stores << store
+    if params[:product][:store_ids].present?
+      params[:product][:store_ids].each do |store_id|
+        unless store_id.empty?
+        store = Store.find(store_id)
+          @product.stores << store
+        end
       end
     end
 
@@ -45,10 +47,12 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
-    params[:product][:store_ids].each do |store_id|
-      unless store_id.empty?
-      store = Store.find(store_id)
-        @product.stores << store
+    if params[:product][:store_ids].present?
+      params[:product][:store_ids].each do |store_id|
+        unless store_id.empty?
+        store = Store.find(store_id)
+          @product.stores << store
+        end
       end
     end
 
