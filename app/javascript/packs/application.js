@@ -26,3 +26,19 @@ document.addEventListener("turbolinks:load", function () {
     $('[data-toggle="popover"]').popover();
   });
 });
+
+$(document).ready(function () {
+  $("#product_name").keyup(function () {
+    var valthis = $(this).val().toLowerCase();
+    var num = 0;
+    $("select#product_category_id>option").each(function () {
+      var text = $(this).attr("keywords").toLowerCase();
+      if (text.indexOf(valthis) !== -1) {
+        $(this).show();
+        $(this).prop("selected", true);
+      } else {
+        $(this).hide();
+      }
+    });
+  });
+});
